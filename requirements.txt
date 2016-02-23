@@ -1,0 +1,4 @@
+googlesearch==0.7.0
+requests==2.9.1
+ipdb==0.9.0
+ipython==4.1.1
