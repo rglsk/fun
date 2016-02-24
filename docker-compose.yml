@@ -1,0 +1,24 @@
+fun_data:
+  image: postgres:latest
+  container_name: fun_data
+  volumes:
+    - /var/lib/postgresql
+  command: "true"
+
+fun_postgres:
+  restart: always
+  container_name: fun_postgres
+  image: postgres:latest
+  volumes_from:
+    - fun_data
+  ports:
+    - "5432:5432"
+
+project1:
+  restart: always
+  container_name: project1
+  build: ./project1
+  links:
+    - fun_postgres:fun_postgres
+  env_file: env
+  command: /bin/sh -c "while true; do echo cos; sleep 1; done"
