@@ -20,5 +20,7 @@ project1:
   build: ./project1
   links:
     - fun_postgres:fun_postgres
+  volumes:
+    - /usr/src/
   env_file: env
   command: /bin/sh -c "while true; do echo cos; sleep 1; done"

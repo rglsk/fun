@@ -3,3 +3,4 @@ DB_USER=postgres
 DB_PASS=postgres
 DB_SERVICE=fun_postgres
 DB_PORT=5432
+TERM=dumb
