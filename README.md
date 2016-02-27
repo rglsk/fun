@@ -1,7 +1,7 @@
 # Fun
 Crawlers, bots and robots.
 
-## Dependencies:
+### Dependencies:
 * [Python 2.7](https://www.python.org/download/releases/2.7/)
 * [Postgresql](http://www.postgresql.org.pl/)
 * [SQLAlchemy](http://www.sqlalchemy.org/)
@@ -9,22 +9,22 @@ Crawlers, bots and robots.
 * [Docker-compose](https://docs.docker.com/compose/)
 * [GoogleSeach](https://pypi.python.org/pypi/googlesearch/0.7.0)
 
-## Instalation:
+### Instalation:
 ```$ pip install docker-compose```
 
-### Run dev environment:
+#### Run dev environment:
 
 ```$ docker-compose up -d```
 
-### Display running containers:
+#### Display running containers:
 
 ```$ docker ps```
 
-### Enter docker container:
+#### Enter docker container:
 
 ```$ docker exec -it <CONTAINER_ID> bash```
 
-###Run application:
+####Run application:
 
 ```$ python main.py ```
 
