@@ -3,9 +3,10 @@ from sqlalchemy.orm import sessionmaker
 
 from models import Base
 from models import engine
+from models import Site
 
 
-GOOGLE_OPERATORS = ['inurl', 'allintext']  #, 'intext', 'allinanchor']
+GOOGLE_OPERATORS = ['inurl', 'allintext', 'intext', 'allinanchor', 'intitle']
 
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
@@ -13,23 +14,23 @@ session = Session()
 
 
 def google_crawler(phrase):
-    important_keys = ['url', 'content']
-    results = {operator: [] for operator in GOOGLE_OPERATORS}
+    """Searching in google for given phrase using operators such us:
+        - inurl
+        - allintext
+        - intext
+        - allinanchor
+        - intitle
+
+    Results are saved in database.
+    """
 
     for operator in GOOGLE_OPERATORS:
         query = '{}:{}'.format(operator, phrase)
         gs = GoogleSearch(query)
         google_results = gs.top_results()
         for google_result in google_results:
-            results[operator].append({key: google_result[key]
-                                      for key in important_keys})
-    return {phrase: results}
-
-
-
-
-if __name__ == '__main__':
-    # phrases = raw_input('Please type phrases separate by space: ').split(' ')
-    phrases = ['bla', 'foo']
-    google_results = [google_crawler(phrase) for phrase in phrases]
-    import ipdb; ipdb.set_trace()
+            site = Site(phrase=phrase,
+                        operator=operator,
+                        content=google_result['content'],
+                        url=google_result['url'])
+            site.save()
