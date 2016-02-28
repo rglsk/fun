@@ -14,13 +14,28 @@ fun_postgres:
   ports:
     - "5432:5432"
 
+fun_image:
+  build: ./
+
 project1:
   restart: always
   container_name: project1
-  build: ./project1
+  image: fun_fun_image
   links:
     - fun_postgres:fun_postgres
   volumes:
-    - /usr/src/
+    - /usr/src/app
+  env_file: env
+  command: /bin/sh -c "while true; do echo cos; sleep 1; done"
+
+
+project2:
+  restart: always
+  container_name: project2
+  image: fun_fun_image
+  links:
+    - fun_postgres:fun_postgres
+  volumes:
+    - /usr/src/app
   env_file: env
   command: /bin/sh -c "while true; do echo cos; sleep 1; done"
