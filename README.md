@@ -1,7 +1,7 @@
 # Fun
 Crawlers, bots and robots.
 
-## Dependencies:
+### Dependencies:
 * [Python 2.7](https://www.python.org/download/releases/2.7/)
 * [Postgresql](http://www.postgresql.org.pl/)
 * [SQLAlchemy](http://www.sqlalchemy.org/)
@@ -33,7 +33,7 @@ Searcher for robots.txt files.
 * Searching and sorting by robots.txt fields
 * Finding interesting stuff in files
 
-## Instalation:
+### Instalation:
 ```$ pip install docker-compose```
 
 Run dev environment:
