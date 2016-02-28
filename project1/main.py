@@ -1,10 +1,10 @@
 import os
 
-from models import Site
-from crawler import google_crawler
+from shared.models import Site
+from project1.crawler import google_crawler
 
 
-def display_sites(is_interested=True):
+def display_sites(is_interested=False):
     sites = Site.get_sites(is_interested)
     for site in sites:
         site.pretty_print()

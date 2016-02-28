@@ -6,3 +6,4 @@ requesocks==0.10.8
 SQLAlchemy==1.0.12
 psycopg2==2.6.1
 pgcli==0.20.1
+Scrapy==1.0.5

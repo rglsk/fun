@@ -1,9 +1,9 @@
 from googlesearch import GoogleSearch
 from sqlalchemy.orm import sessionmaker
 
-from models import Base
-from models import engine
-from models import Site
+from shared.models import Base
+from shared.models import engine
+from shared.models import Site
 
 
 GOOGLE_OPERATORS = ['inurl', 'allintext', 'intext', 'allinanchor', 'intitle']
