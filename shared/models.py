@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from sqlalchemy import create_engine
@@ -11,6 +12,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from shared.settings import SQLALCHEMY_DATABASE_URI
+from shared.settings import INTERESTING_ROBOT_PHRASES
 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
@@ -92,6 +94,22 @@ class Link(Base):
     @classmethod
     def get_all(cls):
         return db.query(cls).all()
+
+    @classmethod
+    def find_interesting(cls, phrases=INTERESTING_ROBOT_PHRASES):
+        links = cls.get_all()
+        results = {phrase: [] for phrase in phrases}
+        for link in links:
+            for phrase in phrases:
+                if link.robot_file:
+                    if phrase in link.robot_file:
+                        results[phrase].append(link.url)
+                else:
+                    logging.info('Phrase: %s not found in %s',
+                                 phrase,
+                                 link.url)
+
+        return results
 
     def save(self):
         if not Link.get_by_url(url=self.url):
