@@ -1,5 +1,6 @@
 from scrapy.crawler import CrawlerProcess
 from scrapy.spiders import CrawlSpider
+
 from shared.models import Link
 
 
@@ -12,6 +13,7 @@ class LinkSpider(CrawlSpider):
                   ]
 
     def parse(self, response):
+        #odp, common_crowl, slownik i doklejam .pl
         links = []
         # next_page = response.xpath('//a[@class="next"]/@href').extract()
         # if next_page and next_page[0]:

@@ -4,3 +4,5 @@ DB_PASS=postgres
 DB_SERVICE=fun_postgres
 DB_PORT=5432
 TERM=dumb
+DEBUG=1
+SECRET_KEY=secret_key

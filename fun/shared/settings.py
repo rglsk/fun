@@ -14,3 +14,6 @@ INTERESTING_ROBOT_PHRASES = ['pilne', 'private', 'prywatne', 'hasla',
                              'zakazane', 'passwords', 'naked', 'nagie', 'nago',
                              'notpublic', 'forbidden', 'zabronione', 'dupa',
                              'raport', 'report']
+
+SECRET_KEY = os.environ['SECRET_KEY']
+DEBUG = int(os.environ.get('DEBUG', '0'))
