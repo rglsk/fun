@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="/static/loading/src/loadingoverlay.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+            function loader(){
+                if($('.search_query').val())
+                {
+                    $.LoadingOverlay("show");
+                    setTimeout(function(){
+                        $.LoadingOverlay("hide");
+                    }, 200000);
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="container">
+                {% include 'navbar.html' %}
+                <div class="jumbotron">
+                    {% block jumbotron %}{% endblock %}
+                </div>
+
+                <div class="jumbotron">
+                    {% block results %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2" style=" margin-top: -25%; margin-left: 80%; ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center>Mean Average Precision</center></div>
+                    <div class="panel-body">Panel Content</div>
+                </div>
+            </div>
+    </body>
+</html>

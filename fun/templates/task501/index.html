@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block jumbotron %}
+    <center><h3>Get results from Google, Bing and Duckduckgo search engine, evaluate them and calculate MAP (Mean Average Precision)</h3></center>
+    <br><br><br>
+    <form class="form" action="/task501" method="post">
+        <div class="input-group">
+            <input type="text" name="search_query" class="form-control search_query" placeholder="Search for..." required>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" onclick="loader()">Go!</button>
+            </span>
+        </div>
+    </form>
+{% endblock%}
+{% block results %}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading"><center>Google</center></div>
+                <div class="panel-body">Panel Content</div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading"><center>Bing</center></div>
+                <div class="panel-body">Panel Content</div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading"><center>Duckduckgo</center></div>
+                <div class="panel-body">Panel Content</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="checkbox">
+              <center><label><input type="checkbox" value="">Relevant</label></center>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="checkbox">
+              <center><label><input type="checkbox" value="">Relevant</label></center>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="checkbox">
+              <center><label><input type="checkbox" value="">Relevant</label></center>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-lg-10"></div>
+        <div class="col-lg-2">
+            <input type="submit" class="btn btn-info" value="Update">
+        </div>
+    </div>
+{% endblock%}
