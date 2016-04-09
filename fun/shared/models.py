@@ -19,7 +19,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URI)
 Base = declarative_base()
 
 Session = sessionmaker(bind=engine)
-db = Session()
+db = Session()  # TODO: make fucking flask session and base class with methods
 
 
 class Site(Base):
@@ -115,3 +115,38 @@ class Link(Base):
         if not Link.get_by_url(url=self.url):
             db.add(self)
             db.commit()
+
+
+class RelevantData(Base):
+    __tablename__ = 'relevantdata'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    relevant_count = Column(Integer, default=0)
+    not_relevant_count = Column(Integer, default=0)
+
+    def __init__(self, name, relevant_count=0, not_relevant_count=0):
+        self.name = name
+        self.relevant_count = relevant_count
+        self.not_relevant_count = not_relevant_count
+
+    @classmethod
+    def get_by_name(cls, name):
+        return db.query(cls).filter_by(name=name).first()
+
+    @classmethod
+    def create_or_update(cls, name, is_relevant):
+        entity = cls.get_by_name(name)
+        if not entity:
+            entity = cls(name)
+
+        if is_relevant:
+            entity.relevant_count += 1
+        else:
+            engine.not_relevant_count += 1
+
+        return entity.save()
+
+    def save(self):
+        db.add(self)
+        db.commit()
+        return self

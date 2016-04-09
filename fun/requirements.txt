@@ -8,3 +8,5 @@ psycopg2==2.6.1
 pgcli==0.20.1
 Scrapy==1.0.5
 Flask==0.10.1
+py-bing-search==0.1.7
+duckduckgo==0.1

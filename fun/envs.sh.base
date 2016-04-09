@@ -1,0 +1,9 @@
+export DB_NAME=postgres
+export DB_USER=postgres
+export DB_PASS=postgres
+export DB_SERVICE=127.0.0.1
+export DB_PORT=5432
+export SECRET_KEY=dsad
+export DEBUG=1
+
+export BING_API_KEY=API_KEY
