@@ -10,3 +10,4 @@ Scrapy==1.0.5
 Flask==0.10.1
 py-bing-search==0.1.7
 duckduckgo==0.1
+Flask-SQLAlchemy==2.1

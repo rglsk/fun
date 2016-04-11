@@ -1,28 +1,23 @@
 from shared.models import RelevantData
 
 
-def save_relevant_data(data):
-    for name, is_relevant in data.iteritems():
-        RelevantData.create_or_update(name=name, is_relevant=is_relevant)
-
-
 def precision(relevant, not_relevant):
     return relevant / float(relevant + not_relevant)
-
-def recall(relevant, not_relevant):
-    pass
 
 
 def count_relevant_data():
     relevants = ['google_relevant', 'bing_relevant', 'duckduckgo_relevant']
 
+    results = {}
     for relevant_name in relevants:
-        relevant = RelevantData.get_by_name(relevant_name)
+        data = [int(x.is_relevant) for x in
+                RelevantData.get_by_name(relevant_name)]
+        true_positives = 0.
+        _sum = 0.
+        for nr, item in enumerate(data):
+            if item and nr in range(len(data[:nr+1])):
+                true_positives += 1.
+                _sum += true_positives / nr if nr else 0.
+        results[relevant_name] = _sum / len(data) if len(data) else 0.
 
-        relevant_count = relevant.relevant_count
-        not_relevant_count = relevant.not_relevant_count
-        Q = relevant_count + not_relevant_count
-
-        _sum = 0
-        for q in xrange(Q):
-            _sum += 1 / relevant_count
+    return results

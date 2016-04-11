@@ -84,3 +84,16 @@
         </div>
     </form>
 {% endblock%}
+
+{% block relevant_results %}
+<div class="col-lg-2" style={% if results %}"margin-top: -26%; margin-left: 80%; "{% else %}"margin-top: -2%; margin-left: 80%; "{% endif %}>
+    <div class="panel panel-primary">
+        <div class="panel-heading"><center>Mean Average Precision</center></div>
+        <div class="panel-body">
+            <b>Google: </b>{{map_results.google_relevant}}<br>
+            <b>Bing: </b>{{map_results.bing_relevant}}<br>
+            <b>DuckDuckGo: </b>{{map_results.duckduckgo_relevant}}<br>
+        </div>
+    </div>
+</div>
+{% endblock %}

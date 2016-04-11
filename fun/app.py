@@ -4,16 +4,24 @@ from flask import request
 from flask import redirect
 
 from task501 import search_engines
-from task501 import relevant
+from task501.relevant import count_relevant_data
 from shared import settings
-from shared.models import RelevantData
+from shared import models
+from shared.settings import SQLALCHEMY_DATABASE_URI
 
 
 def create_app():
     app = Flask(__name__)
     app.secret_key = settings.SECRET_KEY
+    print SQLALCHEMY_DATABASE_URI
+    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.debug = settings.DEBUG
     app.static_folder = './static'
+
+    models.db.init_app(app)
+    with app.app_context():
+        models.db.create_all()
+
     return app
 
 app = create_app()
@@ -27,6 +35,8 @@ def index():
 @app.route('/task501', methods=['GET', 'POST'])
 def task501():
     template_values = {'task501': 'active'}
+    MAP = count_relevant_data()
+    template_values['map_results'] = MAP
 
     if request.method == 'GET':
         return render_template('task501/index.html', **template_values)
@@ -47,18 +57,26 @@ def task501():
         return render_template('task501/index.html', **template_values)
 
 
-@app.route('/relevant', methods=['POST'])
+@app.route('/relevant', methods=['POST', 'DELETE'])
 def relevant_results():
-    google_relevant = bool(request.form.get('google_relevant'))
-    bing_relevant = bool(request.form.get('bing_relevant'))
-    duckduckgo_relevant = bool(request.form.get('duckduckgo_relevant'))
-    data = {'google_relevant': google_relevant,
-            'bing_relevant': bing_relevant,
-            'duckduckgo_relevant': duckduckgo_relevant}
+    if request.method == 'POST':
+        google_relevant = bool(request.form.get('google_relevant'))
+        bing_relevant = bool(request.form.get('bing_relevant'))
+        duckduckgo_relevant = bool(request.form.get('duckduckgo_relevant'))
+        data = {'google_relevant': google_relevant,
+                'bing_relevant': bing_relevant,
+                'duckduckgo_relevant': duckduckgo_relevant}
 
-    relevant.save_relevant_data(data)
+        for name, value in data.iteritems():
+            models.RelevantData(name=name, is_relevant=value).save()
 
-    return redirect('/task501')
+        return redirect('/task501')
+    if request.method == 'DELETE':
+        with app.app_context():
+            all_data = models.RelevantData.query.all()
+            for relev in all_data:
+                relev.delete()
+        return ''
 
 
 if __name__ == '__main__':

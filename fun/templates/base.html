@@ -19,6 +19,23 @@
                     }, 200000);
                 };
             }
+            $(document).ready(function(){
+                $('#delete_data').click(function () {
+                    var r = confirm("Do you wnat to delete all relevant data?");
+                    if (r == true) {
+                        $.ajax({
+                            'type':'DELETE',
+                            'success':function() {
+                                window.location.replace("/task501");
+                            },
+                            'error':function(){},
+                            'url':'/relevant',
+                            'cache':false
+                        })
+                    } else {
+                    }
+            })});
+            
         </script>
     </head>
     <body>
@@ -31,17 +48,13 @@
 
                 {% if results %}
                 <div class="jumbotron">
-                    {% block results %}{% endblock %}
+                    {% block results %}
+                    {% endblock %}
                 </div>
                 {% endif %}
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-2" style=" margin-top: -25%; margin-left: 80%; ">
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><center>Mean Average Precision</center></div>
-                    <div class="panel-body">Panel Content</div>
-                </div>
-            </div>
+            {% block relevant_results %}{% endblock %}
     </body>
 </html>

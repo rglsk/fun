@@ -16,11 +16,15 @@
                 <li class="{{project2}}"><a href="/project2">Project 2</a></li>
                 <li class="{{task501}}"><a href="/task501">Task 501</a></li>
             </ul>
-            <!--  <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-                <li><a href="../navbar-static-top/">Static top</a></li>
-                <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-            </ul> -->
+            {% if task501 %}
+             <ul class="nav navbar-nav navbar-right">
+                <li>
+                <button id="delete_data" type="button" class="btn btn-default btn-lg">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete data
+                </button>
+                </li>
+            </ul>
+            {% endif%}
         </div>
     </div>
 </nav>
