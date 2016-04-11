@@ -48,9 +48,10 @@ def task501():
             return render_template('task501/index.html', **template_values)
 
         results = {}
-        results['google_result'] = search_engines.google_search(query)
-        results['bing_result'] = search_engines.bing_search(query)
-        results['duckduckgo_result'] = search_engines.duckduckgo_search(query)
+        results['google_result'] = search_engines.google_search(query)[0]
+        results['bing_result'] = search_engines.bing_search(query)[0]
+        results['duckduckgo_result'] = search_engines.duckduckgo_search(
+            query)[0]
 
         template_values['results'] = results
 

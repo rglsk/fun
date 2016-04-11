@@ -17,7 +17,7 @@ def count_relevant_data():
         for nr, item in enumerate(data):
             if item and nr in range(len(data[:nr+1])):
                 true_positives += 1.
-                _sum += true_positives / nr if nr else 0.
+                _sum += true_positives / nr if nr else _sum
         results[relevant_name] = _sum / len(data) if len(data) else 0.
 
     return results
