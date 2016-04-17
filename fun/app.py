@@ -48,11 +48,11 @@ def task501():
             return render_template('task501/index.html', **template_values)
 
         results = {}
-        results['google_result'] = search_engines.google_search(query)[0]
-        results['bing_result'] = search_engines.bing_search(query)[0]
+        results['google_result'] = search_engines.google_search(query)
+        results['bing_result'] = search_engines.bing_search(query)
         results['duckduckgo_result'] = search_engines.duckduckgo_search(
-            query)[0]
-
+            query)
+        print results
         template_values['results'] = results
 
         return render_template('task501/index.html', **template_values)
@@ -61,15 +61,23 @@ def task501():
 @app.route('/relevant', methods=['POST', 'DELETE'])
 def relevant_results():
     if request.method == 'POST':
-        google_relevant = bool(request.form.get('google_relevant'))
-        bing_relevant = bool(request.form.get('bing_relevant'))
-        duckduckgo_relevant = bool(request.form.get('duckduckgo_relevant'))
+        google_relevant = []
+        bing_relevant = []
+        duckduckgo_relevant = []
+        for nr in xrange(10):
+            google_relevant.append(
+                bool(request.form.get('google_result{}'.format(str(nr)))))
+            bing_relevant.append(
+                bool(request.form.get('bing_result{}'.format(str(nr)))))
+            duckduckgo_relevant.append(bool(
+                request.form.get('duckduckgo_result{}'.format(str(nr)))))
         data = {'google_relevant': google_relevant,
                 'bing_relevant': bing_relevant,
                 'duckduckgo_relevant': duckduckgo_relevant}
 
         for name, value in data.iteritems():
-            models.RelevantData(name=name, is_relevant=value).save()
+            for result in value:
+                models.RelevantData(name=name, is_relevant=result).save()
 
         return redirect('/task501')
     if request.method == 'DELETE':
