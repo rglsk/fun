@@ -8,7 +8,7 @@ def display_sites(is_interested=False):
     sites = Site.get_sites(is_interested)
     for site in sites:
         site.pretty_print()
-        print '-'*50
+        print '-' * 50
 
 
 def decide_is_interested():
@@ -32,12 +32,12 @@ def main():
     while True:
         points = 50
         print '##' * points
-        print '1' + '.'*points + 'Use crawler.'
-        print '2' + '.'*points + 'Dislay interested.'
-        print '3' + '.'*points + 'Dislay not interested.'
-        print '4' + '.'*points + 'Decide which result is interested.'
-        print '5' + '.'*points + 'Dump database to file'
-        print '0' + '.'*points + 'Exit.\n'
+        print '1' + '.' * points + 'Use crawler.'
+        print '2' + '.' * points + 'Dislay interested.'
+        print '3' + '.' * points + 'Dislay not interested.'
+        print '4' + '.' * points + 'Decide which result is interested.'
+        print '5' + '.' * points + 'Dump database to file'
+        print '0' + '.' * points + 'Exit.\n'
 
         option = raw_input('Option: ')
         if option == '1':

@@ -1,0 +1,30 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ISI 2016</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{project1}}"><a href="/">Project 1</a></li>
+                <li class="{{project2}}"><a href="/">Project 2</a></li>
+                <li class="{{task501}}"><a href="/task501">Task 501</a></li>
+            </ul>
+            {% if task501 %}
+             <ul class="nav navbar-nav navbar-right">
+                <li>
+                <button id="delete_data" type="button" class="btn btn-default btn-lg">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete data
+                </button>
+                </li>
+            </ul>
+            {% endif%}
+        </div>
+    </div>
+</nav>

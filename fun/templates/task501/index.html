@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block jumbotron %}
+    <center><h3>Get results from Google, Bing and Duckduckgo search engine, evaluate them and calculate MAP (Mean Average Precision)</h3></center>
+    <br><br><br>
+    <form class="form" action="/task501" method="POST">
+        <div class="input-group">
+            <input type="text" name="search_query" class="form-control search_query" placeholder="Search for..." required>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" onclick="loader()">Go!</button>
+            </span>
+        </div>
+    </form>
+{% endblock%}
+{% block results %}
+    {% include "task501/results.html" %}
+{% endblock%}
+
+{% block relevant_results %}
+<div class="col-lg-2" style={% if results %}"margin-top: -26%; margin-left: 80%; "{% else %}"margin-top: -2%; margin-left: 80%; "{% endif %}>
+    <div class="panel panel-primary">
+        <div class="panel-heading"><center>Mean Average Precision</center></div>
+        <div class="panel-body">
+            <b>Google: </b>{{map_results.google_relevant}}<br>
+            <b>Bing: </b>{{map_results.bing_relevant}}<br>
+            <b>DuckDuckGo: </b>{{map_results.duckduckgo_relevant}}<br>
+        </div>
+    </div>
+</div>
+{% endblock %}

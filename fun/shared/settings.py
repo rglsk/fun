@@ -17,3 +17,6 @@ INTERESTING_ROBOT_PHRASES = ['pilne', 'private', 'prywatne', 'hasla',
 
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = int(os.environ.get('DEBUG', '0'))
+
+
+BING_API_KEY = os.environ['BING_API_KEY']
