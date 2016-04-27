@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block jumbotron %}
+	<center><h3>List of all interesting sites</h3></center><br>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Phrase</th>
+				<th>Operators</th>
+				<th>Url</th>
+				<th>Content</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for site in interested %}
+			<tr>
+				<td>{{site.phrase}}</td>
+				<td>{{site.operator}}</td>
+				<td><a href="{{site.url}}">{{site.url}}</a></td>
+				<td>{{site.content}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock%}

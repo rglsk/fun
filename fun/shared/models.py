@@ -49,8 +49,12 @@ class Site(db.Model, BaseModel):
     @classmethod
     def get_sites(cls, is_interested=False, _all=False):
         if _all:
-            return db.query(cls).all()
-        return db.query(cls).filter_by(is_interested=is_interested).all()
+            return cls.query.all()
+        return cls.query.filter_by(is_interested=is_interested).all()
+
+    @classmethod
+    def get_first(cls, is_interested=False):
+        return cls.query.filter_by(is_interested=is_interested).first()
 
     @classmethod
     def dump_all_to_file(cls, filename):

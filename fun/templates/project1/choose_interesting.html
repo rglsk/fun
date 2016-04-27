@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block jumbotron %}
+	<center><h3>Is this interesting?</h3></center>
+	<br>
+	<div class="row">
+		<form class="form" action="/choose/interesting/{{not_interested.id}}" method="POST">
+			<div class="col-md-3"></div>
+			<div class="col-md-6" style="background-color: #fff">
+				<center>
+				{{not_interested.phrase}}
+				<br><br>
+				{{not_interested.url}}
+				<br><br>
+				{{not_interested.content}}
+				<br><br>
+				<button class="btn btn-success" name="yes_answer" type="submit">Yes</button>
+				<button class="btn btn-danger" name="no_answer" type="submit">No</button>
+				<br> 
+				</center>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</form>
+{% endblock%}

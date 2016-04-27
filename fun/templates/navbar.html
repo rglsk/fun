@@ -12,18 +12,24 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="{{project1}}"><a href="/">Project 1</a></li>
+                <li class="{{project1}}"><a href="/crawl/data">Project 1</a></li>
                 <li class="{{project2}}"><a href="/">Project 2</a></li>
                 <li class="{{task501}}"><a href="/task501">Task 501</a></li>
             </ul>
             {% if task501 %}
-             <ul class="nav navbar-nav navbar-right">
-                <li>
-                <button id="delete_data" type="button" class="btn btn-default btn-lg">
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete data
-                </button>
-                </li>
-            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button id="delete_data" type="button" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete data
+                        </button>
+                    </li>
+                </ul>
+            {% endif%}
+            {% if project1 %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{{list_interesting}}"><a href="/list/interesting">List interesting</a></li>
+                    <li class="{{choose_interesting}}"><a href="/choose/interesting">Choose interesting</a></li>
+                </ul>
             {% endif%}
         </div>
     </div>

@@ -8,6 +8,7 @@ from task501.relevant import count_relevant_data
 from shared import settings
 from shared import models
 from shared.settings import SQLALCHEMY_DATABASE_URI
+from project1.crawler import google_crawler
 
 
 def create_app():
@@ -80,12 +81,61 @@ def relevant_results():
                 models.RelevantData(name=name, is_relevant=result).save()
 
         return redirect('/task501')
+
     if request.method == 'DELETE':
         with app.app_context():
             all_data = models.RelevantData.query.all()
             for relev in all_data:
                 relev.delete()
         return ''
+
+
+@app.route('/crawl/data', methods=['POST', 'GET'])
+def crawled_data():
+    template_values = {'project1': 'active'}
+
+    if request.method == 'POST':
+        query = request.form.get('search_query')
+        vulgar_words = bool(request.form.get('vulgar_words'))
+
+        total_results = google_crawler(query, vulgar_words)
+        template_values['total_results'] = total_results
+
+    return render_template('project1/index.html', **template_values)
+
+
+@app.route('/choose/interesting', methods=['GET'])
+@app.route('/choose/interesting/<int:_id>', methods=['POST'])
+def choose_interesting(_id=None):
+    template_values = {'choose_interesting': 'active', 'project1': 'active'}
+
+    if request.method == 'GET':
+        not_interested = models.Site.get_first(is_interested=False)
+
+        template_values['not_interested'] = not_interested
+        return render_template('project1/choose_interesting.html',
+                               **template_values)
+
+    if request.method == 'POST':
+        yes_answer = request.form.get('yes_answer', None)
+        result = models.Site.query.filter_by(id=_id).first()
+        if yes_answer:
+            result.is_interested = True
+        else:
+            result.delete()
+        return redirect('/choose/interesting')
+
+
+@app.route('/list/interesting')
+def list_interesting():
+    interested = models.Site.get_sites()
+    template_values = {'list_interesting': 'active',
+                       'project1': 'active',
+                       'interested': interested}
+
+    return render_template('project1/list_interesting.html',
+                            **template_values)
+
 
 
 if __name__ == '__main__':

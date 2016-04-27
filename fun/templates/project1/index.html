@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block information %}
+    {% if total_results %}
+        <div class="alert alert-success">
+            <strong>Success!</strong> Downloaded {{total_results}} results.
+        </div>
+    {% endif %}
+{% endblock %}
+{% block jumbotron %}
+    <center><h3>Find interesting data in google search engine</h3></center>
+    <br><br><br>
+    <form class="form" action="/crawl/data" method="POST">
+        <div class="input-group">
+            <input type="text" name="search_query" class="form-control search_query" placeholder="Search for..." required>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" onclick="loader()">Go!</button>
+            </span>
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="checkbox" data-toggle="toggle" name="vulgar_words" data-on="vulgar words" data-off="no vulgar words">
+        </div>
+    </form>
+{% endblock%}
