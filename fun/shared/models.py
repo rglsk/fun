@@ -25,8 +25,9 @@ class BaseModel(object):
             for record in records:
                 db.session.add(record)
 
-    def to_dict(self):
-        return {key: getattr(self, key) for key in self.__mapper__.c.keys()}
+    def to_dict(self, excluded_fields=[]):
+        return {key: getattr(self, key) for key in self.__mapper__.c.keys()
+                if key not in excluded_fields}
 
 
 class Site(db.Model, BaseModel):

@@ -1,7 +1,9 @@
 from flask import Flask
+from flask import jsonify
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import send_file
 
 from task501 import search_engines
 from task501.relevant import count_relevant_data
@@ -14,7 +16,6 @@ from project1.crawler import google_crawler
 def create_app():
     app = Flask(__name__)
     app.secret_key = settings.SECRET_KEY
-    print SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.debug = settings.DEBUG
     app.static_folder = './static'
@@ -105,7 +106,7 @@ def crawled_data():
 
 
 @app.route('/choose/interesting/<int:_id>', methods=['POST', 'DELETE'])
-@app.route('/choose/interesting', methods=['GET', 'DELETE'])
+@app.route('/choose/interesting', methods=['GET'])
 def choose_interesting(_id=None):
     template_values = {'choose_interesting': 'active', 'project1': 'active'}
 
@@ -138,6 +139,14 @@ def list_interesting():
 
     return render_template('project1/list_interesting.html',
                            **template_values)
+
+
+@app.route('/download/file')
+def download_file():
+    all_sites = models.Site.get_sites(is_interested=True)
+
+    payload = [site.to_dict(['date_created']) for site in all_sites]
+    return jsonify(results=payload)
 
 
 if __name__ == '__main__':
