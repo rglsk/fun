@@ -47,13 +47,11 @@ class Site(db.Model, BaseModel):
         self.is_interested = is_interested
 
     @classmethod
-    def get_sites(cls, is_interested=False, _all=False):
-        if _all:
-            return cls.query.all()
+    def get_sites(cls, is_interested=False, _all=None):
         return cls.query.filter_by(is_interested=is_interested).all()
 
     @classmethod
-    def get_first(cls, is_interested=False):
+    def get_first(cls, is_interested=None):
         return cls.query.filter_by(is_interested=is_interested).first()
 
     @classmethod

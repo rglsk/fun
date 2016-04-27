@@ -104,8 +104,8 @@ def crawled_data():
     return render_template('project1/index.html', **template_values)
 
 
-@app.route('/choose/interesting', methods=['GET'])
-@app.route('/choose/interesting/<int:_id>', methods=['POST'])
+@app.route('/choose/interesting/<int:_id>', methods=['POST', 'DELETE'])
+@app.route('/choose/interesting', methods=['GET', 'DELETE'])
 def choose_interesting(_id=None):
     template_values = {'choose_interesting': 'active', 'project1': 'active'}
 
@@ -116,26 +116,28 @@ def choose_interesting(_id=None):
         return render_template('project1/choose_interesting.html',
                                **template_values)
 
+    result = models.Site.query.filter(models.Site.id == _id).first()
+
     if request.method == 'POST':
-        yes_answer = request.form.get('yes_answer', None)
-        result = models.Site.query.filter_by(id=_id).first()
-        if yes_answer:
-            result.is_interested = True
-        else:
-            result.delete()
+        result.is_interested = True
+        models.db.session.add(result)
+        models.db.session.commit()
         return redirect('/choose/interesting')
+
+    if request.method == 'DELETE':
+        result.delete()
+        return ''
 
 
 @app.route('/list/interesting')
 def list_interesting():
-    interested = models.Site.get_sites()
+    interested = models.Site.get_sites(is_interested=True)
     template_values = {'list_interesting': 'active',
                        'project1': 'active',
                        'interested': interested}
 
     return render_template('project1/list_interesting.html',
-                            **template_values)
-
+                           **template_values)
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@
             }
             $(document).ready(function(){
                 $('#delete_data').click(function () {
-                    var r = confirm("Do you wnat to delete all relevant data?");
+                    var r = confirm("Do you want to delete all relevant data?");
                     if (r == true) {
                         $.ajax({
                             'type':'DELETE',
@@ -35,8 +35,29 @@
                     } else {
                     }
             })});
+
+            function data_delete(url, redirec_url){
+                var r = confirm("Do you want to delete all relevant data?");
+                    if (r == true) {
+                        console.log(url);
+                        console.log(redirec_url);
+
+                        $.ajax({
+                            'type':'DELETE',
+                            'success':function() {
+                                window.location.replace(redirec_url);
+                            },
+                            'error':function(){},
+                            'url':url,
+                            'cache':false
+                        })
+                    } else {
+                    }
+                }
+
             
         </script>
+            }
     </head>
     <body>
         <div class="row">

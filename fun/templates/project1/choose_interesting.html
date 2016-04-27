@@ -13,12 +13,11 @@
 				<br><br>
 				{{not_interested.content}}
 				<br><br>
-				<button class="btn btn-success" name="yes_answer" type="submit">Yes</button>
-				<button class="btn btn-danger" name="no_answer" type="submit">No</button>
-				<br> 
-				</center>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-	</form>
+				<button class="btn btn-success yes_answer" id="yes_answer" type="submit">Yes</button>
+		</form>
+<button class="btn btn-danger no_answer" id="no_answer" type="button" onclick="data_delete('/choose/interesting/{{not_interested.id}}', '/choose/interesting')">No</button>
+<br>
+</center>
+</div>
+<div class="col-md-3"></div>
 {% endblock%}
