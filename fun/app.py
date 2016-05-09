@@ -3,10 +3,10 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 from flask import redirect
-from flask import send_file
 
 from task501 import search_engines
 from task501.relevant import count_relevant_data
+from task601.main import wiki_search
 from shared import settings
 from shared import models
 from shared.settings import SQLALCHEMY_DATABASE_URI
@@ -32,6 +32,8 @@ app = create_app()
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# <------------ MAP API
 
 
 @app.route('/task501', methods=['GET', 'POST'])
@@ -89,6 +91,9 @@ def relevant_results():
             for relev in all_data:
                 relev.delete()
         return ''
+
+
+# <------------ Project 1: crawiling data API
 
 
 @app.route('/crawl/data', methods=['POST', 'GET'])
@@ -149,5 +154,28 @@ def download_file():
     return jsonify(results=payload)
 
 
+# <------------ Elasticsearch API
+
+@app.route('/elasticsearch', methods=['GET', 'POST'])
+def elasticsearch_main():
+    template_values = {'elasticsearch': 'active'}
+
+    if request.method == 'POST':
+        query = request.form.get('search_query')
+        template_values['results'] = wiki_search(query)
+        print template_values['results']
+
+    return render_template('elasticsearch/index.html', **template_values)
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8000)
+
+
+
+
+
+
+
+
+
+

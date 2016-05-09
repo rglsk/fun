@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block information %}
+{% endblock %}
+{% block jumbotron %}
+    <center><h3>Search engine for indexed data</h3></center>
+    <br><br><br>
+    <form class="form" action="/elasticsearch" method="POST">
+        <div class="input-group">
+            <input type="text" name="search_query" class="form-control search_query" placeholder="Search for..." required>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" onclick="loader()">Go!</button>
+            </span>
+        </div>
+        <br>
+    </form>
+{% endblock%}
+{% if results %}
+{% block results %}
+    <table style="width:100%">
+        <tr>
+            <td>Page Id</td>
+            <td>Title</td>
+            <td>Text</td>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{result._source.pageid}}</td>
+            <td>{{result._source.title}}</td>
+            <td>{{result._source.text}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% endif %}

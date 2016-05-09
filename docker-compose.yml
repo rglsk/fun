@@ -13,19 +13,19 @@ fun_postgres:
   ports:
     - "5432:5432"
 
-fun:
-  restart: always
-  build: ./fun
-  links:
-    - fun_postgres:fun_postgres
-  volumes:
-    - /usr/src/app
-  env_file: env
-  command: python /usr/src/app/app.py
+# fun:
+#   restart: always
+#   build: ./fun
+#   links:
+#     - fun_postgres:fun_postgres
+#   volumes:
+#     - /usr/src/app
+#   env_file: env
+#   command: python /usr/src/app/app.py
 
-nginx:
-    build: ./nginx
-    links:
-      - fun:fun
-    ports:
-      - "8000:8000"
+# nginx:
+#     build: ./nginx
+#     links:
+#       - fun:fun
+#     ports:
+#       - "8000:8000"

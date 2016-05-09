@@ -11,3 +11,4 @@ Flask==0.10.1
 py-bing-search==0.1.7
 duckduckgo==0.1
 Flask-SQLAlchemy==2.1
+elasticsearch==2.3.0
